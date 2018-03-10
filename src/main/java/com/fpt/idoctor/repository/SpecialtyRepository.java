@@ -25,4 +25,10 @@ public class SpecialtyRepository {
 		Session session = sessionFactory.getCurrentSession();
 		return (Specialty) session.get(Specialty.class, id);
 	}
+
+	public void add(Specialty specialty) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(specialty);
+
+	}
 }

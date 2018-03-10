@@ -8,11 +8,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 
-import com.fpt.idoctor.common.constant.ModelConstants.RoleEnum;
-
 @Configuration
 @EnableResourceServer
-public class ResourceSecurityConfig extends ResourceServerConfigurerAdapter {
+public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	private static final String RESOURCE_ID = "resource_id";
 
@@ -36,10 +34,9 @@ public class ResourceSecurityConfig extends ResourceServerConfigurerAdapter {
 				// .csrf().disable()
 				.addFilterBefore(jsonFilter, ChannelProcessingFilter.class)
 				.authorizeRequests().antMatchers("/oauth/*").permitAll()
-				.antMatchers("/auth/*").permitAll().antMatchers("/mobile/*")
-				.hasAnyAuthority(RoleEnum.USER.getValue(),
-						RoleEnum.DOCTOR.getValue())
-				.antMatchers("/get/*").permitAll().and().exceptionHandling()
+				.antMatchers("/auth/*").permitAll().antMatchers("/get/*")
+				.permitAll().antMatchers("/mobile/*").fullyAuthenticated().and()
+				.exceptionHandling()
 				.accessDeniedHandler(new AppAccessDeniedHandler());
 		// .anyRequest().fullyAuthenticated()
 

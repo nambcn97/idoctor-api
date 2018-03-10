@@ -104,7 +104,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 				PasswordEncryptUtil.encryptPassword(req.getPassword()));
 		user.setAddress(req.getAddress());
 		user.setPhone(req.getPhone());
-		user.setSex(req.getSex());
+		user.setGender(req.getGender());
 		if (req.getRoleId() == InitRoleId.DOCTOR) {
 			user.setRole(roleRepository.getDoctorRole());
 			user.setSpecialty(

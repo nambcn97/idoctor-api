@@ -3,7 +3,6 @@ package com.fpt.idoctor.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +17,11 @@ import javax.persistence.Table;
 @Table(name = "location")
 public class Location implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private User user;
 	private Double latitude;
 	private Double longitude;
@@ -26,11 +29,11 @@ public class Location implements java.io.Serializable {
 	public Location() {
 	}
 
-	public Location(int id) {
+	public Location(Long id) {
 		this.id = id;
 	}
 
-	public Location(int id, User user, Double latitude, Double longitude) {
+	public Location(Long id, User user, Double latitude, Double longitude) {
 		this.id = id;
 		this.user = user;
 		this.latitude = latitude;
@@ -40,15 +43,15 @@ public class Location implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "userId")
 	public User getUser() {
 		return this.user;

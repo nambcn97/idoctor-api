@@ -2,13 +2,14 @@ package com.fpt.idoctor.api.request;
 
 public class SignUpAdminRequest {
 	private String username;
-	private String firstName;
-	private String lastName;
-	private String email;
+	private String fullName;
 	private String phone;
-	private Long bankId;
 	private String password;
 	// private String photo;
+	private String address;
+	private Boolean gender;
+	private Long roleId;
+	private Long specialtyID;
 
 	public String getUsername() {
 		return username;
@@ -18,60 +19,60 @@ public class SignUpAdminRequest {
 		this.username = username;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return this.fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public Long getBankId() {
-		return bankId;
-	}
-
-	public void setBankId(Long bankId) {
-		this.bankId = bankId;
-	}
-
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	// public String getPhoto() {
-	// return photo;
-	// }
-	//
-	// public void setPhoto(String photo) {
-	// this.photo = photo;
-	// }
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Boolean getGender() {
+		return this.gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	public Long getRoleId() {
+		return this.roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getSpecialtyID() {
+		return this.specialtyID;
+	}
+
+	public void setSpecialtyIPD(Long specialtyID) {
+		this.specialtyID = specialtyID;
+	}
 
 }

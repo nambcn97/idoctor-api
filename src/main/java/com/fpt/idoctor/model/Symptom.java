@@ -3,9 +3,9 @@ package com.fpt.idoctor.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,18 +19,22 @@ import javax.persistence.Table;
 @Table(name = "symptom")
 public class Symptom implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String name;
 	private Set<Disease> diseases = new HashSet<Disease>(0);
 
 	public Symptom() {
 	}
 
-	public Symptom(int id) {
+	public Symptom(Long id) {
 		this.id = id;
 	}
 
-	public Symptom(int id, String name, Set<Disease> diseases) {
+	public Symptom(Long id, String name, Set<Disease> diseases) {
 		this.id = id;
 		this.name = name;
 		this.diseases = diseases;
@@ -39,11 +43,11 @@ public class Symptom implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -56,7 +60,7 @@ public class Symptom implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "symptom")
+	@OneToMany(mappedBy = "symptom")
 	public Set<Disease> getDiseases() {
 		return this.diseases;
 	}

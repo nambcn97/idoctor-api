@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,14 +21,18 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private Role role;
 	private Specialty specialty;
 	private String username;
 	private String password;
 	private String fullname;
 	private String phone;
-	private Boolean sex;
+	private Boolean gender;
 	private String address;
 	private Set<EmergencyCall> emergencycallsForToUserId = new HashSet<EmergencyCall>(
 			0);
@@ -43,12 +46,27 @@ public class User implements java.io.Serializable {
 	public User() {
 	}
 
-	public User(int id) {
+	public User(Long id) {
 		this.id = id;
 	}
 
-	public User(int id, Role role, Specialty specialty, String username,
-			String password, String fullname, String phone, Boolean sex,
+	public User(Long id, Role role, Specialty specialty, String username,
+			String password, String fullname, String phone, Boolean gender,
+			String address) {
+		super();
+		this.id = id;
+		this.role = role;
+		this.specialty = specialty;
+		this.username = username;
+		this.password = password;
+		this.fullname = fullname;
+		this.phone = phone;
+		this.gender = gender;
+		this.address = address;
+	}
+
+	public User(Long id, Role role, Specialty specialty, String username,
+			String password, String fullname, String phone, Boolean gender,
 			String address, Set<EmergencyCall> emergencycallsForToUserId,
 			Set<Location> locations,
 			Set<EmergencyCall> emergencycallsForFromUserId,
@@ -61,7 +79,7 @@ public class User implements java.io.Serializable {
 		this.password = password;
 		this.fullname = fullname;
 		this.phone = phone;
-		this.sex = sex;
+		this.gender = gender;
 		this.address = address;
 		this.emergencycallsForToUserId = emergencycallsForToUserId;
 		this.locations = locations;
@@ -74,15 +92,15 @@ public class User implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "roleId")
 	public Role getRole() {
 		return this.role;
@@ -92,7 +110,7 @@ public class User implements java.io.Serializable {
 		this.role = role;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "specialtyId")
 	public Specialty getSpecialty() {
 		return this.specialty;
@@ -138,13 +156,13 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@Column(name = "sex")
-	public Boolean getSex() {
-		return this.sex;
+	@Column(name = "gender")
+	public Boolean getGender() {
+		return this.gender;
 	}
 
-	public void setSex(Boolean sex) {
-		this.sex = sex;
+	public void setGender(Boolean gender) {
+		this.gender = gender;
 	}
 
 	@Column(name = "address", length = 150)
@@ -156,7 +174,7 @@ public class User implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "toUser")
+	@OneToMany(mappedBy = "toUser")
 	public Set<EmergencyCall> getEmergencycallsForToUserId() {
 		return this.emergencycallsForToUserId;
 	}
@@ -166,7 +184,7 @@ public class User implements java.io.Serializable {
 		this.emergencycallsForToUserId = emergencycallsForToUserId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(mappedBy = "user")
 	public Set<Location> getLocations() {
 		return this.locations;
 	}
@@ -175,7 +193,7 @@ public class User implements java.io.Serializable {
 		this.locations = locations;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fromUser")
+	@OneToMany(mappedBy = "fromUser")
 	public Set<EmergencyCall> getEmergencycallsForFromUserId() {
 		return this.emergencycallsForFromUserId;
 	}
@@ -185,7 +203,7 @@ public class User implements java.io.Serializable {
 		this.emergencycallsForFromUserId = emergencycallsForFromUserId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "toUser")
+	@OneToMany(mappedBy = "toUser")
 	public Set<Message> getMessagesForToUserId() {
 		return this.messagesForToUserId;
 	}
@@ -194,7 +212,7 @@ public class User implements java.io.Serializable {
 		this.messagesForToUserId = messagesForToUserId;
 	}
 
-	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	// @OneToMany( mappedBy = "user")
 	// public Set<Session> getSessions() {
 	// return this.sessions;
 	// }
@@ -203,7 +221,7 @@ public class User implements java.io.Serializable {
 	// this.sessions = sessions;
 	// }
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fromUser")
+	@OneToMany(mappedBy = "fromUser")
 	public Set<Message> getMessagesForFromUserId() {
 		return this.messagesForFromUserId;
 	}

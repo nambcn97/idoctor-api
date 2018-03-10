@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,18 +17,22 @@ import javax.persistence.Table;
 @Table(name = "age")
 public class Age implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String name;
 	private Set<Disease> diseases = new HashSet<Disease>(0);
 
 	public Age() {
 	}
 
-	public Age(int id) {
+	public Age(Long id) {
 		this.id = id;
 	}
 
-	public Age(int id, String name, Set<Disease> diseases) {
+	public Age(Long id, String name, Set<Disease> diseases) {
 		this.id = id;
 		this.name = name;
 		this.diseases = diseases;
@@ -38,11 +41,11 @@ public class Age implements java.io.Serializable {
 	@Id
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -55,7 +58,7 @@ public class Age implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "age")
+	@OneToMany(mappedBy = "age")
 	public Set<Disease> getDiseases() {
 		return this.diseases;
 	}

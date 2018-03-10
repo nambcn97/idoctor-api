@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +21,11 @@ import javax.persistence.TemporalType;
 @Table(name = "message")
 public class Message implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private User toUser;
 	private User fromUser;
 	private Date time;
@@ -31,11 +34,11 @@ public class Message implements java.io.Serializable {
 	public Message() {
 	}
 
-	public Message(int id) {
+	public Message(Long id) {
 		this.id = id;
 	}
 
-	public Message(int id, User toUser, User fromUser, Date time,
+	public Message(Long id, User toUser, User fromUser, Date time,
 			String message) {
 		this.id = id;
 		this.toUser = toUser;
@@ -47,15 +50,15 @@ public class Message implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "toUserId")
 	public User getToUser() {
 		return this.toUser;
@@ -65,7 +68,7 @@ public class Message implements java.io.Serializable {
 		this.toUser = toUser;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "fromUserId")
 	public User getFromUser() {
 		return this.fromUser;

@@ -6,7 +6,7 @@ public class SignUpUserRequest {
 	private String password;
 	private String address;
 	private String phone;
-	private Boolean sex;
+	private Boolean gender;
 	private Long roleId;
 	private Long specialtyId;
 	public String getUsername() {
@@ -39,11 +39,11 @@ public class SignUpUserRequest {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Boolean getSex() {
-		return sex;
+	public Boolean getGender() {
+		return gender;
 	}
-	public void setSex(Boolean sex) {
-		this.sex = sex;
+	public void setGender(Boolean gender) {
+		this.gender = gender;
 	}
 	public Long getRoleId() {
 		return roleId;
@@ -57,6 +57,5 @@ public class SignUpUserRequest {
 	public void setSpecialtyId(Long specialtyId) {
 		this.specialtyId = specialtyId;
 	}
-	
-	
+
 }

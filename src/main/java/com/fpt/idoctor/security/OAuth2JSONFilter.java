@@ -3,7 +3,6 @@ package com.fpt.idoctor.security;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.Filter;
@@ -11,12 +10,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestWrapper;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.catalina.connector.RequestFacade;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -35,8 +32,8 @@ public class OAuth2JSONFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res,
+			FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequestWrapper reqWrapper = (HttpServletRequestWrapper) req;
 		boolean iss = isLoginOrRefreshToken(reqWrapper);
@@ -53,7 +50,8 @@ public class OAuth2JSONFilter implements Filter {
 			buffer.flush();
 			byte[] JSON = buffer.toByteArray();
 
-			HashMap<String, String> result = new ObjectMapper().readValue(JSON, HashMap.class);
+			HashMap<String, String> result = new ObjectMapper().readValue(JSON,
+					HashMap.class);
 			HashMap<String, String[]> r = new HashMap<>();
 			for (String key : result.keySet()) {
 				String[] val = new String[1];
@@ -66,14 +64,16 @@ public class OAuth2JSONFilter implements Filter {
 			// custom hook
 			r.put("_method", val);
 			if (!result.containsKey("refresh_token")) {
-				r.put("grant_type", new String[] { "password" });
-				r.put("username", new String[] { result.get("user") });
-				r.put("password", new String[] { result.get("password") });
+				r.put("grant_type", new String[]{"password"});
+				r.put("username", new String[]{result.get("user")});
+				r.put("password", new String[]{result.get("password")});
 			} else {
-				r.put("refresh_token", new String[] { result.get("refresh_token") });
-				r.put("grant_type", new String[] { "refresh_token" });
+				r.put("refresh_token",
+						new String[]{result.get("refresh_token")});
+				r.put("grant_type", new String[]{"refresh_token"});
 			}
-			HttpServletRequestWrapper newReq = new OAuthHttpServletRequestWrapper((HttpServletRequest) req, r);
+			HttpServletRequestWrapper newReq = new OAuthHttpServletRequestWrapper(
+					(HttpServletRequest) req, r);
 			chain.doFilter(newReq, res);
 		} else {
 			chain.doFilter(req, res);

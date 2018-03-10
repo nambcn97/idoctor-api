@@ -26,4 +26,6 @@ public class UserAPI {
 		return ResponseEntity.ok(userService.getUserInfo());
 	}
 
+	// @RequestMapping(value )
+
 }

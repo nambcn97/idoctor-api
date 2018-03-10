@@ -2,9 +2,9 @@ package com.fpt.idoctor.model;
 // Generated Mar 8, 2018 8:26:25 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +25,7 @@ public class EmergencyCall implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Long id;
 	private User toUser;
 	private User fromUser;
 	private Date time;
@@ -34,11 +34,12 @@ public class EmergencyCall implements java.io.Serializable {
 	public EmergencyCall() {
 	}
 
-	public EmergencyCall(int id) {
+	public EmergencyCall(Long id) {
 		this.id = id;
 	}
 
-	public EmergencyCall(int id, User toUser, User fromUser, Date time, String status) {
+	public EmergencyCall(Long id, User toUser, User fromUser, Date time,
+			String status) {
 		this.id = id;
 		this.toUser = toUser;
 		this.fromUser = fromUser;
@@ -49,15 +50,15 @@ public class EmergencyCall implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "toUserId")
 	public User getToUser() {
 		return this.toUser;
@@ -67,7 +68,7 @@ public class EmergencyCall implements java.io.Serializable {
 		this.toUser = toUser;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "fromUserId")
 	public User getFromUser() {
 		return this.fromUser;

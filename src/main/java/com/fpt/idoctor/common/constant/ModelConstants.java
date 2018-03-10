@@ -15,25 +15,32 @@ public class ModelConstants {
 
 	public static class InitRoleId {
 		/**
-		 * ID: 1
+		 * RoleID: 1
 		 */
-		public static final int USER = 1;
+		public static final Long USER = 1L;
 		/**
-		 * ID: 2
+		 * RoleID: 2
 		 */
-		public static final int DOCTOR = 2;
+		public static final Long DOCTOR = 2L;
 	}
 
 	public static class InitUserId {
-		public static final Long ADMIN = 1L;
-		public static final Long SYSTEM = 2L;
-		public static final Long BANKER = 3L;
+		/**
+		 * USER ID = 1
+		 */
+		public static final Long USER = 1L;
+		/**
+		 * DOCTOR ID = 2
+		 */
+		public static final Long DOCTOR = 2L;
 	}
 
-	public static class InitPaymentTypeId {
-		public static final Long CASH = 1L;
-		public static final Long AUTO_DEBIT = 2L;
-		public static final Long TRANSFER = 3L;
+	public static class InitSpecialtyId {
+		public static final Long HUYET_HOC = 1L;
+		public static final Long DA_LIEU = 2L;
+		public static final Long TAM_THAN = 3L;
+		public static final Long NHA_KHOA = 4L;
+		public static final Long NHI_KHOA = 5L;
 	}
 
 	public static class InitWithdrawalTypeId {
@@ -62,9 +69,9 @@ public class ModelConstants {
 		}
 	}
 
-
 	public enum BookingStatus {
-		NEW("New"), IN_PROGRESS("In Progress"), READY("Ready"), FINISHED("Finished"), CANCELLED("Cancelled");
+		NEW("New"), IN_PROGRESS("In Progress"), READY("Ready"), FINISHED(
+				"Finished"), CANCELLED("Cancelled");
 		private String code;
 
 		private BookingStatus(String code) {
@@ -89,6 +96,5 @@ public class ModelConstants {
 			return code;
 		}
 	}
-
 
 }

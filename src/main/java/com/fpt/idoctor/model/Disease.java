@@ -3,7 +3,6 @@ package com.fpt.idoctor.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +17,11 @@ import javax.persistence.Table;
 @Table(name = "disease")
 public class Disease implements java.io.Serializable {
 
-	private int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
 	private Age age;
 	private Specialty specialty;
 	private Symptom symptom;
@@ -30,12 +33,12 @@ public class Disease implements java.io.Serializable {
 	public Disease() {
 	}
 
-	public Disease(int id) {
+	public Disease(Long id) {
 		this.id = id;
 	}
 
-	public Disease(int id, Age age, Specialty specialty, Symptom symptom, String name, String overview, String detail,
-			Boolean sex) {
+	public Disease(Long id, Age age, Specialty specialty, Symptom symptom,
+			String name, String overview, String detail, Boolean sex) {
 		this.id = id;
 		this.age = age;
 		this.specialty = specialty;
@@ -49,15 +52,15 @@ public class Disease implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ageId")
 	public Age getAge() {
 		return this.age;
@@ -67,7 +70,7 @@ public class Disease implements java.io.Serializable {
 		this.age = age;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "specialtyId")
 	public Specialty getSpecialty() {
 		return this.specialty;
@@ -77,7 +80,7 @@ public class Disease implements java.io.Serializable {
 		this.specialty = specialty;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "symptomId")
 	public Symptom getSymptom() {
 		return this.symptom;

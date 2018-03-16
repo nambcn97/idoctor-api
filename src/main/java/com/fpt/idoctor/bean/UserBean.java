@@ -1,64 +1,108 @@
 package com.fpt.idoctor.bean;
 
 public class UserBean {
-	private String user;
-	private String firstName;
-	private String lastName;
-	private String email;
+	private Long id;
+	private String username;
+	private String fullName;
 	private String phone;
+	private String specialty;
+	private String deviceId;
+	private String address;
+	private String role;
+	private Boolean gender;
+	private Double lat;
+	private Double lng;
 
 	public UserBean() {
 
 	}
 
-	public UserBean(String user, String firstName, String lastName, String email, String phone) {
-		super();
-		this.user = user;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phone = phone;
-	}
-	
-
-	public String getUser() {
-		return user;
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getFullName() {
+		return this.fullName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getSpecialty() {
+		return this.specialty;
+	}
+
+	public void setSpecialty(String specialty) {
+		this.specialty = specialty;
+	}
+
+	public String getDeviceId() {
+		return this.deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getRole() {
+		return this.role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Boolean getGender() {
+		return this.gender;
+	}
+
+	public void setGender(Boolean gender) {
+		this.gender = gender;
+	}
+
+	public Double getLat() {
+		return this.lat;
+	}
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+	public Double getLng() {
+		return this.lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lng = lng;
 	}
 
 }

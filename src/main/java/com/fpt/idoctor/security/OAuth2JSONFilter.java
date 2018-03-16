@@ -81,7 +81,8 @@ public class OAuth2JSONFilter implements Filter {
 	}
 
 	public boolean isLoginOrRefreshToken(HttpServletRequestWrapper reqWrapper) {
-		return APPLICATION_JSON.equals(reqWrapper.getContentType())
+		String contentType = reqWrapper.getContentType();
+		return contentType != null && contentType.contains(APPLICATION_JSON)
 				&& reqWrapper.getMethod().equals(HttpMethod.POST.toString())
 				&& URL_LOGIN.equals(reqWrapper.getServletPath());
 	}

@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fpt.idoctor.common.constant.ModelConstants.InitRoleId;
 import com.fpt.idoctor.model.User;
 
 @Repository
@@ -45,7 +46,6 @@ public class UserRepository {
 	public void addUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
-
 	}
 
 	public void updateUser(User user) {
@@ -91,5 +91,20 @@ public class UserRepository {
 	public boolean existUser(String username) {
 		return isExistUser(username) != null;
 	}
+
+	public List<User> findDoctor(Double lat, Double lng, Double radius) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM User "
+				+ "WHERE sqrt(pow(location.latitude - :x ,2) + pow(location.longitude - :y ,2)) <= :radius "
+				+ "AND roleID = :roleId";
+		Query query = session.createQuery(hql);
+		query.setParameter("x", lat);
+		query.setParameter("y", lng);
+		query.setParameter("radius", radius);
+		query.setParameter("roleId", InitRoleId.DOCTOR);
+		return query.list();
+	}
+
+	// public void updateDeviceId()
 
 }

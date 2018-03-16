@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +20,6 @@ public class Location implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private User user;
 	private Double latitude;
 	private Double longitude;
 
@@ -33,9 +30,8 @@ public class Location implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Location(Long id, User user, Double latitude, Double longitude) {
+	public Location(Long id, Double latitude, Double longitude) {
 		this.id = id;
-		this.user = user;
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
@@ -49,16 +45,6 @@ public class Location implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	@Column(name = "latitude", precision = 22, scale = 0)

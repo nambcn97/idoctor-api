@@ -8,43 +8,42 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.fpt.idoctor.model.Role;
-
+import com.fpt.idoctor.model.Location;
 @Repository
-public class RoleRepository {
-
+public class LocationRepository {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public List<Role> getAllRoles() {
+	public List<Location> getAllLocations() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Role> listRole = session.createQuery("FROM Role").list();
-		return listRole;
+		List<Location> listLocation = session.createQuery("FROM Location")
+				.list();
+		return listLocation;
 	}
 
-	public void addRole(Role role) {
+	public void addLocation(Location location) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(role);
+		session.save(location);
 	}
 
-	public void updateRole(Role role) {
+	public void updateLocation(Location location) {
 		Session session = sessionFactory.getCurrentSession();
-		session.update(role);
+		session.update(location);
 	}
 
-	public void deleteRole(Long id) {
+	public void deleteLocation(Long id) {
 		Session session = sessionFactory.getCurrentSession();
-		Role role = (Role) session.get(Role.class, id);
-		if (role != null) {
-			session.delete(role);
+		Location location = (Location) session.get(Location.class, id);
+		if (location != null) {
+			session.delete(location);
 		}
 	}
 
-	public Role getRole(Long id) {
+	public Location getLocation(Long id) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Role where id = :id");
+		Query query = session.createQuery("FROM Location where id = :id");
 		query.setParameter("id", id);
-		List<Role> list = query.list();
+		List<Location> list = query.list();
 		if (!list.isEmpty())
 			return list.get(0);
 		return null;

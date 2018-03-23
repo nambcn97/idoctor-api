@@ -14,19 +14,13 @@ public class ApiConstants {
 	 */
 	public static final String AUTH_INVALID_USER_PASS = "auth.invalid.user.pass";
 	public static final String AUTH_INVALID_TOKEN = "auth.invalid.token";
-	
-	
+
 	/**
 	 * MOBILE API CONSTANT - MESSAGE SOURCE KEY
 	 */
-	
-	
+
 	/**
 	 * GET API CONSTANT - MESSAGE SOURCE KEY
 	 */
-	public static final String GET_SPLASH_IMAGE_NULL = "get.splash.null";
-	
-	/**
-	 * WEB API CONSTANT - MESSAGE SOURCE KEY
-	 */
+
 }

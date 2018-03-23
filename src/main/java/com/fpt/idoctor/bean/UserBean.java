@@ -12,7 +12,7 @@ public class UserBean {
 	private Boolean gender;
 	private Double lat;
 	private Double lng;
-
+	private String status;
 	public UserBean() {
 
 	}
@@ -104,5 +104,10 @@ public class UserBean {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
-
+	public String getStatus() {
+		return this.status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

@@ -39,6 +39,7 @@ public class User implements java.io.Serializable {
 	private String address;
 	private String deviceId;
 	private Location location;
+	private String status;
 	private Set<EmergencyCall> emergencycallsForToUserId = new HashSet<EmergencyCall>(
 			0);
 
@@ -235,13 +236,21 @@ public class User implements java.io.Serializable {
 		this.messagesForFromUserId = messagesForFromUserId;
 	}
 
-	@Column(name = "deviceId", length = 150)
+	@Column(name = "deviceId")
 	public String getDeviceId() {
 		return this.deviceId;
 	}
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+	@Column(name = "status", length = 15)
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public UserBean convertToBean() {
@@ -251,12 +260,16 @@ public class User implements java.io.Serializable {
 		bean.setDeviceId(deviceId);
 		bean.setFullName(fullname);
 		bean.setGender(gender);
-		bean.setLat(location.getLatitude());
-		bean.setLng(location.getLongitude());
+		if (location != null) {
+			bean.setLat(location.getLatitude());
+			bean.setLng(location.getLongitude());
+		}
 		bean.setPhone(phone);
 		bean.setRole(role.getCode());
-		bean.setSpecialty(specialty.getName());
+		if (specialty != null)
+			bean.setSpecialty(specialty.getName());
 		bean.setUsername(username);
+		bean.setStatus(status);
 		return bean;
 	}
 

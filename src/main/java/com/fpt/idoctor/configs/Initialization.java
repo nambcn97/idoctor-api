@@ -46,13 +46,17 @@ public class Initialization implements ApplicationRunner {
 
 	private void initRole() {
 		LOGGER.info("Initializing Role");
-		if (roleRepository.getUserRole() == null) {
+		if (roleRepository.getRole(InitRoleId.USER) == null) {
 			roleRepository.addRole(
 					new Role(InitRoleId.USER, RoleEnum.USER.getValue()));
 		}
-		if (roleRepository.getDoctorRole() == null) {
+		if (roleRepository.getRole(InitRoleId.DOCTOR) == null) {
 			roleRepository.addRole(
 					new Role(InitRoleId.DOCTOR, RoleEnum.DOCTOR.getValue()));
+		}
+		if (roleRepository.getRole(InitRoleId.ANONYMOUS) == null) {
+			roleRepository.addRole(new Role(InitRoleId.ANONYMOUS,
+					RoleEnum.ANONYMOUS.getValue()));
 		}
 
 	}
@@ -64,8 +68,8 @@ public class Initialization implements ApplicationRunner {
 
 	private void initUser() throws Exception {
 		LOGGER.info("Initializing User");
-		Role userRole = roleRepository.getUserRole();
-		Role doctorRole = roleRepository.getDoctorRole();
+		Role userRole = roleRepository.getRole(InitRoleId.USER);
+		Role doctorRole = roleRepository.getRole(InitRoleId.DOCTOR);
 		Specialty huyetHoc = specialtyRepository
 				.getSpecialtyById(InitSpecialtyId.HUYET_HOC);
 		if (userRepository.findById(InitUserId.USER) == null) {

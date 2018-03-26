@@ -2,10 +2,13 @@ package com.fpt.idoctor.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EmergencyBean {
 	private Long id;
 	private UserBean fromUser;
 	private UserBean toUser;
+
 	private Date date;
 	private String status;
 	public Long getId() {
@@ -26,6 +29,7 @@ public class EmergencyBean {
 	public void setToUser(UserBean toUser) {
 		this.toUser = toUser;
 	}
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Bangkok")
 	public Date getDate() {
 		return this.date;
 	}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ import com.fpt.idoctor.security.SecurityUtils;
 import com.fpt.idoctor.service.EmergencyService;
 import com.fpt.idoctor.service.FirebaseService;
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class EmergencyServiceImpl implements EmergencyService {
 	@Autowired
 	private FirebaseService firebaseService;
@@ -69,7 +72,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 				userRepository.addUser(user);
 			}
 			UserBean userBean = user.convertToBean();
-			data.put("from", userBean);
+			JSONObject userObj = new JSONObject(userBean);
+			data.put("fromUser", userObj);
 
 			json.put("data", data);
 

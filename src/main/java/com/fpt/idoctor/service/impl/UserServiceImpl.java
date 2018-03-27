@@ -14,6 +14,7 @@ import com.fpt.idoctor.api.response.BaseResponse;
 import com.fpt.idoctor.api.response.FindDoctorResponse;
 import com.fpt.idoctor.api.response.GetUserInfoResponse;
 import com.fpt.idoctor.bean.UserBean;
+import com.fpt.idoctor.common.constant.ModelConstants.RoleEnum;
 import com.fpt.idoctor.common.constant.ModelConstants.UserStatus;
 import com.fpt.idoctor.model.User;
 import com.fpt.idoctor.repository.UserRepository;
@@ -72,13 +73,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public BaseResponse findDoctor(FindDoctorRequest req) throws Exception {
-		BaseResponse baseRes = new BaseResponse();
+		User currentUser = SecurityUtils.getCurrentUser();
+		Long doctorId = null;
+		if (currentUser.getRole().getCode().equals(RoleEnum.DOCTOR.getValue()))
+			doctorId = currentUser.getId();
 		FindDoctorResponse res = new FindDoctorResponse();
 		List<User> doctors = userRepository.findDoctor(req.getLat(),
 				req.getLng(), req.getRadius(),
 				new String[]{UserStatus.ONLINE.getValue(),
 						UserStatus.BUSY.getValue(),
-						UserStatus.OFFLINE.getValue()});
+						UserStatus.OFFLINE.getValue()},
+				doctorId);
 		List<UserBean> doctorBeans = new ArrayList<>();
 		for (User doctor : doctors) {
 			UserBean bean = doctor.convertToBean();

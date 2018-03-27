@@ -20,6 +20,7 @@ import com.fpt.idoctor.bean.EmergencyBean;
 import com.fpt.idoctor.bean.UserBean;
 import com.fpt.idoctor.common.constant.ModelConstants.EmergencyStatus;
 import com.fpt.idoctor.common.constant.ModelConstants.InitRoleId;
+import com.fpt.idoctor.common.constant.ModelConstants.RoleEnum;
 import com.fpt.idoctor.common.constant.ModelConstants.UserStatus;
 import com.fpt.idoctor.model.EmergencyCall;
 import com.fpt.idoctor.model.Location;
@@ -50,6 +51,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 		BaseResponse baseRes = new BaseResponse();
 		SendEmergencyResponse res = new SendEmergencyResponse();
 		Date date = new Date();
+		Long doctorId = null;
 		try {
 			JSONObject json = new JSONObject();
 
@@ -58,6 +60,8 @@ public class EmergencyServiceImpl implements EmergencyService {
 
 			if (req.getLoggedIn()) {
 				user = SecurityUtils.getCurrentUser();
+				if (user.getRole().getCode().equals(RoleEnum.DOCTOR))
+					doctorId = user.getId();
 			} else {
 				// anonymous emergency
 				Location location = new Location(null, req.getLat(),
@@ -74,6 +78,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 			UserBean userBean = user.convertToBean();
 			JSONObject userObj = new JSONObject(userBean);
 			data.put("fromUser", userObj);
+			data.put("type", "p2d");
 
 			json.put("data", data);
 
@@ -81,14 +86,15 @@ public class EmergencyServiceImpl implements EmergencyService {
 			notification.put("title", "iDoctor - Emergency");
 			notification.put("body", "Bạn có lời gọi cấp cứu từ bệnh nhân");
 			notification.put("icon", "ic_noti_emergency");
-			// notification.put("click_action", ")
+			notification.put("click_action",
+					"vn.edu.fpt.idoctor.ui.PatientRequestMapsActivity");
 			json.put("notification", notification);
 
 			JSONArray registration_ids = new JSONArray();
 			// get all doctor available
 			List<User> availDoctors = userRepository.findDoctor(req.getLat(),
 					req.getLng(), req.getRadius(),
-					new String[]{UserStatus.ONLINE.getValue()});
+					new String[]{UserStatus.ONLINE.getValue()}, doctorId);
 
 			for (User doctor : availDoctors) {
 				registration_ids.put(doctor.getDeviceId());

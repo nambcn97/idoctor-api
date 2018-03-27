@@ -13,6 +13,7 @@ public class UserBean {
 	private Double lat;
 	private Double lng;
 	private String status;
+	private String workAddress;
 	public UserBean() {
 
 	}
@@ -109,5 +110,12 @@ public class UserBean {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getWorkAddress() {
+		return this.workAddress;
+	}
+	public void setWorkAddress(String workAddress) {
+		this.workAddress = workAddress;
 	}
 }

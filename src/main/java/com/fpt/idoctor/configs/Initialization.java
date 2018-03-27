@@ -75,13 +75,13 @@ public class Initialization implements ApplicationRunner {
 		if (userRepository.findById(InitUserId.USER) == null) {
 			User user = new User(InitUserId.USER, userRole, null, "user",
 					DEFAULT_PASSWORD, "Bui Nam", "0962052697", true,
-					"Thai Nguyen");
+					"Thai Nguyen", "");
 			userRepository.addUser(user);
 		}
 		if (userRepository.findById(InitUserId.DOCTOR) == null) {
 			User doctor = new User(InitUserId.DOCTOR, doctorRole, huyetHoc,
 					"doctor", DEFAULT_PASSWORD, "Bac sy A", "0918691234", false,
-					"Nghe An");
+					"Nghe An", "Bệnh viện Bạch Mai");
 			userRepository.addUser(doctor);
 		}
 	}

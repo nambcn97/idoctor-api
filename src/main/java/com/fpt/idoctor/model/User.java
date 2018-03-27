@@ -31,6 +31,7 @@ public class User implements java.io.Serializable {
 	private Long id;
 	private Role role;
 	private Specialty specialty;
+	private String workAddress;
 	private String username;
 	private String password;
 	private String fullname;
@@ -58,7 +59,7 @@ public class User implements java.io.Serializable {
 
 	public User(Long id, Role role, Specialty specialty, String username,
 			String password, String fullname, String phone, Boolean gender,
-			String address) {
+			String address, String workAddress) {
 		super();
 		this.id = id;
 		this.role = role;
@@ -69,6 +70,7 @@ public class User implements java.io.Serializable {
 		this.phone = phone;
 		this.gender = gender;
 		this.address = address;
+		this.workAddress = workAddress;
 	}
 
 	public User(Long id, Role role, Specialty specialty, String username,
@@ -236,7 +238,7 @@ public class User implements java.io.Serializable {
 		this.messagesForFromUserId = messagesForFromUserId;
 	}
 
-	@Column(name = "deviceId")
+	@Column(name = "deviceId", length = 500)
 	public String getDeviceId() {
 		return this.deviceId;
 	}
@@ -251,6 +253,14 @@ public class User implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	@Column(name = "workAddress", length = 500)
+	public String getWorkAddress() {
+		return this.workAddress;
+	}
+
+	public void setWorkAddress(String workAddress) {
+		this.workAddress = workAddress;
 	}
 
 	public UserBean convertToBean() {
@@ -270,6 +280,7 @@ public class User implements java.io.Serializable {
 			bean.setSpecialty(specialty.getName());
 		bean.setUsername(username);
 		bean.setStatus(status);
+		bean.setWorkAddress(workAddress);
 		return bean;
 	}
 

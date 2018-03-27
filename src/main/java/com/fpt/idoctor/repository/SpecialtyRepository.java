@@ -1,5 +1,6 @@
 package com.fpt.idoctor.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -18,7 +19,10 @@ public class SpecialtyRepository {
 	public List<Specialty> getAllSpecialty() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM Specialty";
-		return session.createQuery(hql).list();
+		List list = session.createQuery(hql).list();
+		if (list == null)
+			list = new ArrayList<>();
+		return list;
 	}
 
 	public Specialty getSpecialtyById(Long id) {

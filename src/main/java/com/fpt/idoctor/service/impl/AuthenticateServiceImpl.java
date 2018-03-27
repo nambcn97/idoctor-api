@@ -105,10 +105,12 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 		user.setAddress(req.getAddress());
 		user.setPhone(req.getPhone());
 		user.setGender(req.getGender());
+
 		if (req.getRoleId() == InitRoleId.DOCTOR) {
 			user.setRole(roleRepository.getRole(InitRoleId.DOCTOR));
 			user.setSpecialty(
 					specialtyRepository.getSpecialtyById(req.getSpecialtyId()));
+			user.setWorkAddress(req.getWorkAddress());
 		} else {
 			user.setRole(roleRepository.getRole(InitRoleId.USER));
 		}

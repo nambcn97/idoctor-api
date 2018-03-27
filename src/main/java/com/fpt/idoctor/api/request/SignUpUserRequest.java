@@ -9,6 +9,7 @@ public class SignUpUserRequest {
 	private Boolean gender;
 	private Long roleId;
 	private Long specialtyId;
+	private String workAddress;
 	public String getUsername() {
 		return username;
 	}
@@ -56,6 +57,13 @@ public class SignUpUserRequest {
 	}
 	public void setSpecialtyId(Long specialtyId) {
 		this.specialtyId = specialtyId;
+	}
+	public String getWorkAddress() {
+		return this.workAddress;
+	}
+
+	public void setWorkAddress(String workAddress) {
+		this.workAddress = workAddress;
 	}
 
 }

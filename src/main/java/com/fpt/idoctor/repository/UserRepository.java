@@ -112,19 +112,25 @@ public class UserRepository {
 	 * @param lng
 	 * @param radius
 	 *            radius in meters
+	 * @param doctorId
+	 *            if finder is a doctor
 	 * @return
 	 */
 	public List<User> findDoctor(Double lat, Double lng, Double radius,
-			String[] status) {
+			String[] status, Long doctorId) {
 		List<User> doctors = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM User "
-				+ "WHERE role.id = :roleId AND status in (:status)";
-
+				+ "WHERE role.id = :roleId AND status in (:status) ";
+		if (doctorId != null) {
+			hql += "AND user.id != :doctorId ";
+		}
 		Query query = session.createQuery(hql);
 		query.setParameter("roleId", InitRoleId.DOCTOR);
 		query.setParameterList("status", status);
-
+		if (doctorId != null) {
+			query.setParameter("doctorId", doctorId);
+		}
 		doctors = query.list();
 		for (int i = 0; i < doctors.size(); i++) {
 			User user = doctors.get(i);

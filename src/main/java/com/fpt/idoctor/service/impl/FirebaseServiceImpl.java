@@ -23,7 +23,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "key=" + FCM_TOKEN);
-		httpHeaders.set("Content-Type", "application/json");
+		httpHeaders.set("Content-Type", "application/json; charset=utf-8");
 		HttpEntity<String> httpEntity = new HttpEntity<String>(
 				request.toString(), httpHeaders);
 		ResponseEntity<String> response = restTemplate.postForEntity(FCM_API,

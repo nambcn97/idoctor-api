@@ -21,4 +21,9 @@ public class SpecialtyAPI {
 			@RequestBody GetSpecialtyRequest req) {
 		return ResponseEntity.ok(specialtyService.getSpecialty(req.getId()));
 	}
+
+	@RequestMapping(value = "/get/allSpecialty", method = RequestMethod.GET)
+	public ResponseEntity<BaseResponse> getAllSpecialty() {
+		return ResponseEntity.ok(specialtyService.getAllSpecialty());
+	}
 }

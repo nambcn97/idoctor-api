@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fpt.idoctor.api.request.EditMyInfoRequest;
 import com.fpt.idoctor.api.request.FindDoctorRequest;
 import com.fpt.idoctor.api.request.UpdateDataRequest;
 import com.fpt.idoctor.api.request.UpdateUserStatusRequest;
@@ -45,5 +46,16 @@ public class UserAPI {
 	public ResponseEntity<BaseResponse> updateUserStatus(
 			UpdateUserStatusRequest req) {
 		return ResponseEntity.ok(userService.updateUserStatus(req));
+	}
+
+	@RequestMapping(value = "/mobile/myInfo", method = RequestMethod.GET)
+	public ResponseEntity<BaseResponse> getMyInfo() {
+		return ResponseEntity.ok(userService.getMyInfo());
+	}
+
+	@RequestMapping(value = "/mobile/editMyInfo", method = RequestMethod.POST)
+	public ResponseEntity<BaseResponse> editMyInfo(
+			@RequestBody EditMyInfoRequest req) throws Exception {
+		return ResponseEntity.ok(userService.editMyInfo(req));
 	}
 }

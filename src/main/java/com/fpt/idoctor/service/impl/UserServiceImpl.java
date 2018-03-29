@@ -8,18 +8,21 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fpt.idoctor.api.request.EditMyInfoRequest;
 import com.fpt.idoctor.api.request.FindDoctorRequest;
 import com.fpt.idoctor.api.request.UpdateDataRequest;
 import com.fpt.idoctor.api.request.UpdateUserStatusRequest;
 import com.fpt.idoctor.api.response.BaseResponse;
 import com.fpt.idoctor.api.response.FindDoctorResponse;
 import com.fpt.idoctor.api.response.GetUserInfoResponse;
+import com.fpt.idoctor.api.response.MyInfoResponse;
 import com.fpt.idoctor.bean.UserBean;
 import com.fpt.idoctor.common.constant.ModelConstants.RoleEnum;
 import com.fpt.idoctor.common.constant.ModelConstants.UserStatus;
 import com.fpt.idoctor.model.Location;
 import com.fpt.idoctor.model.User;
 import com.fpt.idoctor.repository.LocationRepository;
+import com.fpt.idoctor.repository.SpecialtyRepository;
 import com.fpt.idoctor.repository.UserRepository;
 import com.fpt.idoctor.security.SecurityUtils;
 import com.fpt.idoctor.service.UserService;
@@ -34,6 +37,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private LocationRepository locationRepository;
 
+	@Autowired
+	private SpecialtyRepository specialtyRepository;
 	@Override
 	public List<User> getAllUser() throws Exception {
 		return userRepository.getAllUsers();
@@ -130,4 +135,36 @@ public class UserServiceImpl implements UserService {
 		return response;
 	}
 
+	@Override
+	public MyInfoResponse getMyInfo() {
+		Long id = SecurityUtils.getCurrentUser().getId();
+		User user = userRepository.findById(id);
+		MyInfoResponse res = new MyInfoResponse();
+		res.buildSuccessful();
+		res.setMyInfo(user.convertToBean());
+		return res;
+	}
+
+	@Override
+	public BaseResponse editMyInfo(EditMyInfoRequest req) throws Exception {
+		User user = SecurityUtils.getCurrentUser();
+		user.setAddress(req.getAddress());
+		user.setFullname(req.getFullName());
+		user.setGender(req.getGender());
+		user.setPhone(req.getPhone());
+		if (user.getRole().getCode().equals(RoleEnum.DOCTOR.getValue())) {
+			user.setWorkAddress(req.getWorkAddress());
+			user.setSpecialty(
+					specialtyRepository.getSpecialtyById(req.getSpecialtyId()));
+		}
+		Location location = user.getLocation();
+		location.setLatitude(req.getLat());
+		location.setLongitude(req.getLng());
+		locationRepository.updateLocation(location);
+		user.setLocation(location);
+		userRepository.updateUser(user);
+		BaseResponse res = new BaseResponse();
+		res.buildSuccessful();
+		return res;
+	}
 }

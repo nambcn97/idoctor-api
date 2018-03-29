@@ -17,7 +17,8 @@ import com.fpt.idoctor.model.User;
 public class UserRepository {
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	@Autowired
+	private DiseaseRepository diseaseRepository;
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
 	}
@@ -106,6 +107,23 @@ public class UserRepository {
 	public boolean existUser(String username) {
 		return isExistUser(username) != null;
 	}
+
+	public List<User> findDoctorBySymptoms(Long symptomId, String others) {
+		Session session = sessionFactory.getCurrentSession();
+		List<User> doctors = new ArrayList<>();
+		List<Long> listSpecialtyId = diseaseRepository.findBySymptom(others,
+				symptomId);
+		if (listSpecialtyId.isEmpty())
+			listSpecialtyId.add(1L);
+		String hql = "FROM User WHERE specialty.id in (:lstSpecialty)";
+		Query query = session.createQuery(hql);
+		query.setParameterList("lstSpecialty", listSpecialtyId);
+		doctors = query.list();
+		if (doctors == null)
+			return new ArrayList<User>();
+		return doctors;
+	}
+
 	/**
 	 * 
 	 * @param lat
@@ -123,7 +141,7 @@ public class UserRepository {
 		String hql = "FROM User "
 				+ "WHERE role.id = :roleId AND status in (:status) ";
 		if (doctorId != null) {
-			hql += "AND user.id != :doctorId ";
+			hql += "AND id != :doctorId ";
 		}
 		Query query = session.createQuery(hql);
 		query.setParameter("roleId", InitRoleId.DOCTOR);

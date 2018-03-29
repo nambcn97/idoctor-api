@@ -52,4 +52,31 @@ public class EmergencyCallRepository {
 		return null;
 	}
 
+	public List<EmergencyCall> findEmergencies(Long fromUser, Long toUser,
+			String status) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM EmergencyCall where 1=1 ";
+		if (fromUser != null) {
+			hql += " AND fromUser.id = :fromUser ";
+		}
+		if (toUser != null) {
+			hql += " AND toUser.id = :toUser ";
+		}
+		if (status != null) {
+			hql += " AND status = :status ";
+		}
+		Query query = session.createQuery(hql);
+		if (fromUser != null) {
+			query.setParameter("fromUser", fromUser);
+		}
+		if (toUser != null) {
+			query.setParameter("toUser", toUser);
+		}
+		if (status != null) {
+			query.setParameter("status", status);
+		}
+		List<EmergencyCall> list = query.list();
+		return list;
+	}
+
 }

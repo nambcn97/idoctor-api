@@ -10,6 +10,8 @@ public class SignUpUserRequest {
 	private Long roleId;
 	private Long specialtyId;
 	private String workAddress;
+	private Double lat;
+	private Double lng;
 	public String getUsername() {
 		return username;
 	}
@@ -64,6 +66,18 @@ public class SignUpUserRequest {
 
 	public void setWorkAddress(String workAddress) {
 		this.workAddress = workAddress;
+	}
+	public Double getLat() {
+		return this.lat;
+	}
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+	public Double getLng() {
+		return this.lng;
+	}
+	public void setLng(Double lng) {
+		this.lng = lng;
 	}
 
 }

@@ -48,7 +48,7 @@ public class ModelConstants {
 	}
 
 	public enum UserStatus {
-		ONLINE("1"), BUSY("2"), OFFLINE("3");
+		ONLINE("Online"), BUSY("Busy"), OFFLINE("Offline");
 		private String status;
 
 		private UserStatus(String status) {

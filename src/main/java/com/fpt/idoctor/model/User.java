@@ -47,7 +47,7 @@ public class User implements java.io.Serializable {
 	private Set<EmergencyCall> emergencycallsForFromUserId = new HashSet<EmergencyCall>(
 			0);
 	private Set<Message> messagesForToUserId = new HashSet<Message>(0);
-	// private Set<Session> sessions = new HashSet<Session>(0);
+
 	private Set<Message> messagesForFromUserId = new HashSet<Message>(0);
 
 	public User() {

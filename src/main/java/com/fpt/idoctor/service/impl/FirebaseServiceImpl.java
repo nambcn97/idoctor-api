@@ -19,7 +19,8 @@ public class FirebaseServiceImpl implements FirebaseService {
 	private UserService userService;
 
 	@Override
-	public ResponseEntity<String> sendNotification(JSONObject request) {
+	public ResponseEntity<String> sendNotification(JSONObject request)
+			throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("Authorization", "key=" + FCM_TOKEN);

@@ -60,7 +60,7 @@ public class EmergencyServiceImpl implements EmergencyService {
 
 			if (req.getLoggedIn()) {
 				user = SecurityUtils.getCurrentUser();
-				if (user.getRole().getCode().equals(RoleEnum.DOCTOR))
+				if (user.getRole().getCode().equals(RoleEnum.DOCTOR.getValue()))
 					doctorId = user.getId();
 			} else {
 				// anonymous emergency
@@ -99,6 +99,11 @@ public class EmergencyServiceImpl implements EmergencyService {
 			for (User doctor : availDoctors) {
 				registration_ids.put(doctor.getDeviceId());
 
+			}
+			if (availDoctors.isEmpty()) {
+				res.buildSuccessful();
+				res.setEmergencies(new ArrayList<EmergencyBean>());
+				return res;
 			}
 			json.put("registration_ids", registration_ids);
 			// send noti using firebase

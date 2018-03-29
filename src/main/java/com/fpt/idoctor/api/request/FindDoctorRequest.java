@@ -4,7 +4,9 @@ public class FindDoctorRequest {
 	private Double lat;
 	private Double lng;
 	private Double radius;
-	private String symptoms;
+	private String others;
+	private Long symptomId;
+
 	public Double getLat() {
 		return this.lat;
 	}
@@ -23,11 +25,17 @@ public class FindDoctorRequest {
 	public void setRadius(Double radius) {
 		this.radius = radius;
 	}
-	public String getSymptoms() {
-		return this.symptoms;
+	public String getOthers() {
+		return this.others;
 	}
-	public void setSymptoms(String symptoms) {
-		this.symptoms = symptoms;
+	public void setOthers(String others) {
+		this.others = others;
+	}
+	public Long getSymptomId() {
+		return this.symptomId;
+	}
+	public void setSymptomId(Long symptomId) {
+		this.symptomId = symptomId;
 	}
 
 }
